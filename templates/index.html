@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart AI Chatbot 🤖</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+body{background:linear-gradient(135deg,#e0f2fe,#f8fafc);}
+.chat-card{width:420px;}
+.bubble{padding:10px 14px;border-radius:18px;max-width:75%;}
+.bubble.user{background:#0ea5e9;color:white;margin-left:auto;}
+.bubble.bot{background:#f1f5f9;color:#0f172a;margin-right:auto;}
+.typing{width:40px;display:flex;gap:6px;align-items:center;}
+.dot{width:8px;height:8px;background:#cbd5e1;border-radius:50%;animation:jump 1s infinite;}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+@keyframes jump{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+<div class="chat-card bg-white rounded-xl shadow-xl overflow-hidden">
+  <div class="p-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="bg-white rounded-full w-9 h-9 flex items-center justify-center">🤖</div>
+      <div class="font-semibold text-lg">Smart AI Chatbot</div>
+    </div>
+    <div class="text-sm opacity-80">Hybrid + Personality</div>
+  </div>
+  <div id="messages" class="p-4 h-96 overflow-auto flex flex-col gap-3 bg-gray-50"></div>
+  <div class="p-3 border-t bg-white flex gap-2 items-center">
+    <input id="inputMsg" class="flex-1 border rounded-xl p-2 focus:outline-none" placeholder="Type a message...">
+    <button id="sendBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl">Send</button>
+  </div>
+  <div class="p-2 text-center text-xs text-gray-500">Type “reset chat” to clear memory | “change personality to sarcastic/friendly/professional”</div>
+</div>
+<script>
+const messages=document.getElementById('messages');const input=document.getElementById('inputMsg');const sendBtn=document.getElementById('sendBtn');
+function appendBubble(text,who='bot'){const d=document.createElement('div');d.className=(who==='user'?'bubble user':'bubble bot');d.textContent=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight;}
+function showTyping(){const t=document.createElement('div');t.className='typing';t.id='typing';t.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';messages.appendChild(t);}
+function hideTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+async function sendMessage(){const text=input.value.trim();if(!text)return;appendBubble(text,'user');input.value='';showTyping();
+try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})});
+const data=await r.json();hideTyping();appendBubble(data.reply,'bot');}catch(e){hideTyping();appendBubble('Error contacting server.','bot');}}
+sendBtn.addEventListener('click',sendMessage);
+input.addEventListener('keypress',e=>{if(e.key==='Enter')sendMessage();});
+</script></body></html>

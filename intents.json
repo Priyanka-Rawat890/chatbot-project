@@ -1,0 +1,43 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hello", "hi", "hey", "good morning", "good evening"],
+      "responses": ["Hello there! 😊", "Hey! How can I help you today?", "Hi! Nice to see you!"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "see you", "goodbye", "take care"],
+      "responses": ["Goodbye! 👋", "See you soon!", "Take care and have a great day!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["thanks", "thank you", "thx"],
+      "responses": ["You're welcome!", "No problem! 😊", "Glad I could help!"]
+    },
+    {
+      "tag": "time",
+      "patterns": ["what time is it", "current time", "time now" , "tell me the time", "can you tell the time", "what's the time"],
+      "responses": ["The current time is {time}"]
+    },
+    {
+      "tag": "date",
+      "patterns": ["what is the date", "today's date", "date today"],
+      "responses": ["Today's date is {date}"]
+    },
+    {
+      "tag": "joke",
+      "patterns": ["tell me a joke", "make me laugh", "funny joke"],
+      "responses": [
+        "Why don’t programmers like nature? It has too many bugs! 🐛",
+        "Why did the computer go to the doctor? Because it caught a virus!",
+        "Why do Java developers wear glasses? Because they don’t see sharp!"
+      ]
+    },
+    {
+      "tag": "about",
+      "patterns": ["who are you", "what are you", "introduce yourself", "your name", "who am I talking to", "can you introduce yourself"],
+      "responses": ["I'm your friendly AI assistant 🤖, built with Python & Flask!", "I'm an AI chatbot created to chat and help you!"]
+    }
+  ]
+}
