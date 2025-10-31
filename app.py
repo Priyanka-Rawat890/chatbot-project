@@ -13,7 +13,10 @@ CORS(app)
 # === Load AI model ===
 print("🤖 Loading DialoGPT-small model... please wait (first time only)")
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
-model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small")
+model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small", low_cpu_mem_usage=True)
+model.eval()
+torch.set_grad_enabled(False)
+
 
 # Conversation memory (to maintain chat history)
 chat_history_ids = None
