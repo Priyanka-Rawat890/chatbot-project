@@ -11,11 +11,14 @@ app = Flask(__name__)
 CORS(app)
 
 # === Load AI model ===
-print("🤖 Loading DialoGPT-small model... please wait (first time only)")
-tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
-model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small", low_cpu_mem_usage=True)
+print("🤖 Loading DialoGPT-tiny model... please wait (first time only)")
+model_name = "microsoft/DialoGPT-tiny"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
 model.eval()
 torch.set_grad_enabled(False)
+
 
 
 # Conversation memory (to maintain chat history)
