@@ -1,5 +1,5 @@
 Flask==3.0.3
 flask-cors==4.0.0
 transformers==4.37.2
-torch==2.3.0
+torch
 gunicorn==21.2.0
